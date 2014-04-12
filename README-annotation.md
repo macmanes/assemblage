@@ -1,25 +1,22 @@
 Annotation
 ==========
 
-Although the workflows in this README were made specifically for my thesis on Next-generation nematode genomes, most of them are generic and should be useful to anyone annotating any other genome.
+This pipeline is in active development by the MacManes Lab. This webpage has been forked from https://github.com/sujaikumar/assemblage/blob/master/README-annotation.md
 
 How to predict genes using a two-pass (iterative) MAKER2 workflow
 --------------------------------------------------------
 
-This is a meta How-to which uses the next few How-Tos as described:
 
 Requirements:
 
 1. Genome assembly (nucleotide fasta file)
 2. CDSs (ESTs or RNA-Seq assembly) from the same species, if possible
-3. Protein set from a closely related species, if possible (we used C. briggsae
-   for C. sp5, B. malayi for D. immitis and L. sigmodontis, and M. hapla for 
-   M. floridensis. You can also use a well curated set of proteins like swissprot ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.fasta.gz
-4. MAKER2 pipeline from http://www.yandell-lab.org/software/maker.html (we used version 2.25)
-5. CEGMA - Core Eukaryotic Genes Mapping Approach - from http://korflab.ucdavis.edu/datasets/cegma/ (we used version 2.1)
-6. SNAP gene finder from http://korflab.ucdavis.edu/Software . We used the version dated  2010-07-28 
-7. Augustus gene finder from http://bioinf.uni-greifswald.de/augustus/ (we used version 2.5.5)
-8. GeneMark-ES gene finder from http://exon.gatech.edu/license_download.cgi (we used GeneMark-ES LINUX 64 version 2.3e - `gm_es_bp_linux64_v2.3e.tar.gz`)
+3. Protein set from a closely related species. You can also use a well curated set of proteins like swissprot ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.fasta.gz
+4. MAKER2 pipeline from http://www.yandell-lab.org/software/maker.html (we used version 2.31.2) Compiling with MPI support is preferrable
+5. CEGMA - Core Eukaryotic Genes Mapping Approach - from http://korflab.ucdavis.edu/datasets/cegma/ 
+6. SNAP gene finder from http://korflab.ucdavis.edu/Software .  
+7. Augustus gene finder from http://bioinf.uni-greifswald.de/augustus/ (we used version 3.0.2)
+8. GeneMark-ES gene finder from http://exon.gatech.edu/license_download.cgi (used GeneMark-ES LINUX 64 version 2.3e - `gm_es_bp_linux64_v2.3e.tar.gz`)
 
 Overview:
 
@@ -37,12 +34,7 @@ How to run CEGMA to generate a SNAP HMM
 
 You can run CEGMA in the same directory as the genome file, but I find it easier to run it in a genome specific subdirectory (in case you have many CEGMA runs to do in the same folder)
 
-    # set the bash variable for the genome assembly file:
-    genome=assembly.fna
-
-    mkdir       $genome.cegma
-    cd          $genome.cegma
-    cegma -g ../$genome.cegma
+    cegma -g genome.fa
 
 CEGMA creates a bunch of output files:
 
