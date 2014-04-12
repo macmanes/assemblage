@@ -32,9 +32,13 @@ The rest of this README uses bash variables, so just replace them with your own 
 How to run CEGMA to generate a SNAP HMM
 --------------------------------------------------------
 
-You can run CEGMA in the same directory as the genome file, but I find it easier to run it in a genome specific subdirectory (in case you have many CEGMA runs to do in the same folder)
+Before running cegma, you must tell the software where a few different things are..  I put these in my `.profile` so I never have to worry about them.
 
-    cegma -g genome.fa
+	export CEGMA=/home/macmanes/cegma_v2.4.010312/
+	export PERL5LIB=$PERL5LIB:$CEGMA/lib:/home/macmanes/tRNAscan-SE-1.3.1/:/home/macmanes/pasa-code/PASA/PerlLib
+	export WISECONFIGDIR=/home/macmanes/wise2.2.3-rc7/wisecfg/
+    
+    ~/cegma_v2.4.010312/bin/cegma --mam -T 14 --genome jelly.out.fasta
 
 CEGMA creates a bunch of output files:
 
