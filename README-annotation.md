@@ -37,28 +37,29 @@ Before running cegma, you must tell the software where a few different things ar
 	export CEGMA=/home/macmanes/cegma_v2.4.010312/
 	export PERL5LIB=$PERL5LIB:$CEGMA/lib:/home/macmanes/tRNAscan-SE-1.3.1/:/home/macmanes/pasa-code/PASA/PerlLib
 	export WISECONFIGDIR=/home/macmanes/wise2.2.3-rc7/wisecfg/
+
+Make sure you set the number of threads appropriately, and use `--mam` if your running cegma on a mammalian genome. 
     
     ~/cegma_v2.4.010312/bin/cegma --mam -T 14 --genome jelly.out.fasta
 
-CEGMA creates a bunch of output files:
+CEGMA creates a bunch of output files. It will usually take several hours to run.
 
 `output.completeness_report` is very useful for seeing what percentage of core eukaryotic genes are found.
 
 For annotation, we need the `output.cegma.gff` file. The following commands create a SNAP HMM trained using this CEGMA file:
 
-    cd $genome.cegma
-    cegma2zff output.cegma.gff   ../$genome
+    cegma2zff output.cegma.gff jelly.out.fasta
     fathom genome.ann genome.dna -categorize 1000
     fathom -export 1000 -plus uni.ann uni.dna
     forge export.ann export.dna
-    hmm-assembler.pl $genome . > ../$genome.cegmasnap.hmm
+    hmm-assembler.pl jelly.out.fasta . > cegmasnap.hmm
 
 How to run GeneMark
 --------------------------------------------------------
 
 The command for running GeneMark is:
 
-    /PATH/TO/gm_es_bp_linux64_v2.3e/gmes/gm_es.pl $genome
+    /PATH/TO/gm_es_bp_linux64_v2.3e/gmes/gm_es.pl jelly.out.fasta --BP OFF
 
 This should work fine in most cases. It may not work if you have very short contigs because the default minimum contig size is 20,000. Try reducing that to 10,000. From the GeneMark-ES README:
 
